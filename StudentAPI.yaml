@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Student API
+  description: API untuk mengelola data mahasiswa
+  contact:
+    name: Kelompok 6 PPL
+    email: ammar.22046@mhs.unesa.ac.id
+paths:
+  /students:
+    get:
+      summary: Mendapatkan semua data mahasiswa
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    age:
+                      type: integer
+    post:
+      summary: Menambahkan data mahasiswa baru
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                age:
+                  type: integer
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad request
+  '/students/{id}':
+    get:
+      summary: Mendapatkan data mahasiswa berdasarkan ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  age:
+                    type: integer
+        '404':
+          description: Data mahasiswa tidak ditemukan
+    put:
+      summary: Mengupdate data mahasiswa berdasarkan ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                age:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Data mahasiswa tidak ditemukan
+    delete:
+      summary: Menghapus data mahasiswa berdasarkan ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Data mahasiswa tidak ditemukan
+servers:
+  - url: http://localhost:3000
